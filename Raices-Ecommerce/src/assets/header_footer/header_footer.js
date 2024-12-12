@@ -42,6 +42,12 @@ if  (localStorage.getItem("login_success")){
             </li>
             <!---->
             <li>
+
+              <a class="nav-item me-2" id="cerrarSesion">
+                <button type="button" style="display: none" class="btn btn-light align-items-end mb-2 rounded-pill"style=" width: 126px">Cerrar sesión</button>
+              </a>
+            </li>
+            <li>
               <a class="nav-item me-2" href="/Raices-Ecommerce/src/pages/Login/login.html">
                 <button type="button" class="btn btn-light align-items-end mb-2 rounded-pill"style="
     width: 126px">Iniciar sesión</button>
