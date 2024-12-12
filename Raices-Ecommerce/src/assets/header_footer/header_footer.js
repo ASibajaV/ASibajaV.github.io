@@ -35,7 +35,7 @@ if  (localStorage.getItem("login_success")){
               <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Productos</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contactanos</a>
+              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contáctanos</a>
             </li>
             <li class="nav-item me-2">
               <a class="nav-link" href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
@@ -112,7 +112,7 @@ if  (localStorage.getItem("login_success")){
                 <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Productos</a>
               </li>
               <li class="nav-item me-2">
-                <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contactanos</a>
+                <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contáctanos</a>
               </li>
               <li class="nav-item me-2">
                 <a class="nav-link" href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
@@ -184,7 +184,7 @@ if  (localStorage.getItem("login_success")){
               <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Productos</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contactanos</a>
+              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contáctanos</a>
             </li>
             <li class="nav-item me-2">
               <a class="nav-link" href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
