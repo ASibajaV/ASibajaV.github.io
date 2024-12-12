@@ -15,7 +15,7 @@
         "id": 5, "imagen": "/Raices-Ecommerce/src/assets/Images/miel1.png", "name":"Miel de Manglar", "precio":"1150.00", "descripcion":"Originaria de Campeche", "inventario": 5, "categoría": "Miel", "estado": "tendencias"
         }, 
         {
-        "id": 6, "imagen": "/Raices-Ecommerce/src/assets/Images/cafecin.png", "name":"Café de Altura", "precio":"999.00", "descripcion":"Originario de Oaxaca", "inventario": 6, "categoría": "Cafe", "estado": "nuevo"
+        "id": 6, "imagen": "https://raw.githubusercontent.com/Xamagora/Catalogo/refs/heads/main/Catalogo%20de%20la%20pagina/Caf%C3%A9/cafecin.webp", "name":"Café de Altura", "precio":"999.00", "descripcion":"Originario de Oaxaca", "inventario": 6, "categoría": "Cafe", "estado": "nuevo"
         },
         {
         "id": 7, "imagen": "/Raices-Ecommerce/src/assets/Images/miel.png", "name":"Paquete de Miel", "precio":"1700.00", "descripcion":"Originaria de Yucatán", "inventario": 5, "categoría": "Miel", "estado": "favoritos"
@@ -24,10 +24,10 @@
         "id": 8, "imagen": "/Raices-Ecommerce/src/assets/Images/sol.png", "name":"Sol de Bronce", "precio":"2100.00", "descripcion":"Originario de Guerrero", "inventario": 9, "categoría": "Joyeria", "estado": "descuentos"
         },
         {
-        "id": 9, "imagen": "/Raices-Ecommerce/src/assets/Images/cat_miel.png", "name":"Miel de Campanita", "precio":"900.00", "descripcion":"Originaria de Jalisco", "inventario": 9, "categoría": "Miel", "estado": "tendencias"
+        "id": 9, "imagen": "https://raw.githubusercontent.com/Xamagora/Catalogo/refs/heads/main/Catalogo%20de%20la%20pagina/Miel/cat_Miel.webp", "name":"Miel de Campanita", "precio":"900.00", "descripcion":"Originaria de Jalisco", "inventario": 9, "categoría": "Miel", "estado": "tendencias"
         },
         {
-        "id": 10, "imagen": "/Raices-Ecommerce/src/assets/Images/mielAbeja.png", "name":"Miel de Melipona", "precio":"1100.00", "descripcion":"Originaria de Oaxaca", "inventario": 6, "categoría": "Miel", "estado": "nuevo"
+        "id": 10, "imagen": "https://raw.githubusercontent.com/Xamagora/Catalogo/refs/heads/main/Catalogo%20de%20la%20pagina/Miel/mielAbeja.webp", "name":"Miel de Melipona", "precio":"1100.00", "descripcion":"Originaria de Oaxaca", "inventario": 6, "categoría": "Miel", "estado": "nuevo"
     }
 
 ]
