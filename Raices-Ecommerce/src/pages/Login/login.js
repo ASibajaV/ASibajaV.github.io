@@ -1,5 +1,3 @@
-const login = document.getElementById("loginButton");
-
 //Valida si un usuario ya esta en sesión. No deberia tener existir la posibilidad, pero previene el error.
 if  (localStorage.getItem("login_success")){
   Swal.fire({
