@@ -138,6 +138,68 @@ const btnCancelar = document.getElementById('Cancelar');
 btnCancelar.style.display = "none"; 
 // Función para editar producto
 function updateData(id) {
+    //Validaciones para el formulario de editar
+    // Recuperar los datos del formulario
+    const id = document.getElementById('id').value;
+    const imagen = document.getElementById('imagen').value;
+    const name = document.getElementById('name').value;
+    const precio = document.getElementById('precio').value;
+    const inventario = document.getElementById('inventario').value;
+    const categoria = document.getElementById('categoria').value;
+    const estado = document.getElementById('estado').value;
+    const descripcion = document.getElementById('descripcion').value;
+        // Validación básica para evitar campos vacíos
+    if (id===""){
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Ingresa id";
+        return;
+    }
+    else if (imagen===""){
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Ingresa imagen";
+        return;
+    }
+    else if(name==="" || name.match(/[0-9]/g)){
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Ingresa un nombre valido para tu producto";
+        return;
+    }
+    else if(precio==="" || precio.match(/[a-z]/g)){
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Ingresa un precio valido";
+        return;
+    }
+    else if(inventario===""){
+        
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Ingresa numero de inventario";
+        return;
+    }
+    else if(categoria==="EligeUnaOpcion"){
+        
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Por favor elige una categoría ";
+        return;
+    }
+    else if(estado==="EligeUnaOpcion"){
+        
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Por favor elige un estado ";
+        return;
+    }
+    else if(descripcion===""){
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Ingresa una descripción";
+        return;
+    } else {
     const producto = listaDeProductos.find(p => p.id === id);
     document.getElementById('id').value = producto.id;
     document.getElementById('imagen').value = producto.imagen;
@@ -173,6 +235,7 @@ function updateData(id) {
         // Ocultar el botón de Actualizar y mostrar el de Enviar nuevamente
         document.getElementById("enviar").style.display = "block";
         btnUpdate.style.display = "none";
+    }
     });
     // Agregar evento al botón de actualización
     btnCancelar.addEventListener('click', function () {
