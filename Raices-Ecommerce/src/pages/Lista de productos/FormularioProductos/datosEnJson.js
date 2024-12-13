@@ -1,7 +1,8 @@
 // Lista de productos obtenida del localStorage o vacía
 let listaDeProductos = JSON.parse(localStorage.getItem('productos')) || [];
-
+/*-----------------------------------------------------------------------------------*/
 // Función para mostrar los productos guardados
+/*-----------------------------------------------------------------------------------*/
 function mostrarProductos() {
     const productosContainer = document.querySelector('.productos-container');
     productosContainer.innerHTML = ''; // Limpiar los productos antes de mostrar los nuevos
@@ -30,6 +31,9 @@ function mostrarProductos() {
         productosContainer.appendChild(productoDiv);
     });
 }
+/*-----------------------------------------------------------------------------------*/
+// Función para obtener los datos del formulario y convertirlos en formato JSON
+/*-----------------------------------------------------------------------------------*/
 // Agregar el event listener al botón de envío
 const btnEnviar = document.getElementById('enviar');
 btnEnviar.addEventListener('click', obtenerDatosFormulario);
@@ -73,6 +77,7 @@ function obtenerDatosFormulario(event) {
         document.getElementById("uno").textContent="Ingresa un precio valido";
         return;
     }
+    
     else if(inventario===""){
         
         document.getElementById("uno").className= "alert alert-danger";
@@ -80,19 +85,27 @@ function obtenerDatosFormulario(event) {
         document.getElementById("uno").textContent="Ingresa numero de inventario";
         return;
     }
-    
-    /*Falta AGREGAR CATEGORIA Y ESTADO */
+    else if(categoria==="EligeUnaOpcion"){
+        
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Por favor elige una categoría ";
+        return;
+    }
+    else if(estado==="EligeUnaOpcion"){
+        
+        document.getElementById("uno").className= "alert alert-danger";
+        document.getElementById("uno").setAttribute("role","alert");
+        document.getElementById("uno").textContent="Por favor elige un estado ";
+        return;
+    }
     else if(descripcion===""){
         document.getElementById("uno").className= "alert alert-danger";
         document.getElementById("uno").setAttribute("role","alert");
         document.getElementById("uno").textContent="Ingresa una descripción";
         return;
     } else {
-        
-
-
-
-    // Crear un objeto con los datos
+      // Crear un objeto con los datos
     const datosProducto = {
         id: parseInt(id), // Asegurarse de que el ID sea un número
         imagen: imagen,
@@ -103,7 +116,6 @@ function obtenerDatosFormulario(event) {
         estado: estado,
         descripcion: descripcion
     };
-    
     // Guardar el producto en la lista de productos
     listaDeProductos.push(datosProducto);
 
@@ -116,7 +128,9 @@ function obtenerDatosFormulario(event) {
     // Mostrar los productos actualizados
     mostrarProductos();
 }}
-
+/*-----------------------------------------------------------------*/
+//Función para Eliminar todos los productos
+/*-----------------------------------------------------------------*/
 const btnEliminarTodos = document.getElementById('eliminarTodos');
 btnEliminarTodos.addEventListener('click', eliminarTodosLosProductos);
 // Función para eliminar todos los productos
@@ -130,7 +144,8 @@ function eliminarTodosLosProductos() {
     // Actualizar la interfaz de usuario
     mostrarProductos();
 }
-
+/*-----------------------------------------------------------------*/
+// Función para editar producto
 /*-----------------------------------------------------------------*/
 const btnUpdate = document.getElementById('Update');
 btnUpdate.style.display = "none"; 
@@ -138,7 +153,23 @@ const btnCancelar = document.getElementById('Cancelar');
 btnCancelar.style.display = "none"; 
 // Función para editar producto
 function updateData(id) {
-    //Validaciones para el formulario de editar
+    const producto = listaDeProductos.find(p => p.id === id);
+    document.getElementById('id').value = producto.id;
+    document.getElementById('imagen').value = producto.imagen;
+    document.getElementById('name').value = producto.name;
+    document.getElementById('precio').value = producto.precio;
+    document.getElementById('inventario').value = producto.inventario;
+    document.getElementById('categoria').value = producto.categoria;
+    document.getElementById('estado').value = producto.estado;
+    document.getElementById('descripcion').value = producto.descripcion;
+
+    // Ocultar el botón de Enviar y mostrar el de Actualizar
+    document.getElementById("enviar").style.display = "none";
+    btnUpdate.style.display = "block";
+    btnCancelar.style.display = "block";
+
+    // Agregar evento al botón de actualización
+    btnUpdate.addEventListener('click', function () {
     // Recuperar los datos del formulario
     const id = document.getElementById('id').value;
     const imagen = document.getElementById('imagen').value;
@@ -200,23 +231,6 @@ function updateData(id) {
         document.getElementById("uno").textContent="Ingresa una descripción";
         return;
     } else {
-    const producto = listaDeProductos.find(p => p.id === id);
-    document.getElementById('id').value = producto.id;
-    document.getElementById('imagen').value = producto.imagen;
-    document.getElementById('name').value = producto.name;
-    document.getElementById('precio').value = producto.precio;
-    document.getElementById('inventario').value = producto.inventario;
-    document.getElementById('categoria').value = producto.categoria;
-    document.getElementById('estado').value = producto.estado;
-    document.getElementById('descripcion').value = producto.descripcion;
-
-    // Ocultar el botón de Enviar y mostrar el de Actualizar
-    document.getElementById("enviar").style.display = "none";
-    btnUpdate.style.display = "block";
-    btnCancelar.style.display = "block";
-
-    // Agregar evento al botón de actualización
-    btnUpdate.addEventListener('click', function () {
         // Actualizar los datos del producto
         producto.imagen = document.getElementById('imagen').value;
         producto.name = document.getElementById('name').value;
@@ -231,24 +245,22 @@ function updateData(id) {
         mostrarProductos();
 
         location.reload();
-       
+    
         // Ocultar el botón de Actualizar y mostrar el de Enviar nuevamente
         document.getElementById("enviar").style.display = "block";
         btnUpdate.style.display = "none";
     }
     });
-    // Agregar evento al botón de actualización
+    // Agregar evento al botón de cancelar
     btnCancelar.addEventListener('click', function () {
         location.reload();
-    });
     
-}
+    });
 
-  
+} 
 /*-----------------------------------------------------------------*/
-
-
 // Función para eliminar un producto de la lista
+/*-----------------------------------------------------------------*/
 function eliminarProducto(id) {
     // Filtrar el producto que no se desea eliminar
     listaDeProductos = listaDeProductos.filter(producto => producto.id !== id);
@@ -259,7 +271,5 @@ function eliminarProducto(id) {
     // Mostrar los productos actualizados
     mostrarProductos();
 }
-
-
 // Mostrar los productos cuando se carga la página
 mostrarProductos();
