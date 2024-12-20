@@ -1,5 +1,13 @@
 <h1 align="center">Hola 👋,somos Raíces México</h1>
-<h3 align="center">Un E-Commerce comprometido con los artesanos mexicano y los clientes.</h3>
+<h3 align="center">Un E-Commerce comprometido con los artesanos mexicanos y los clientes.</h3>
+
+### Propuesta de valor:
+<h4>
+Con nuestros productos, podrás conocer y reconocer la belleza y la historia de México a través de nuestras artesanías únicas, hechas por manos de talentosos artesanos y productores mexicanos. Al comprar nuestros productos, no solo adquieres un objeto hermoso y de alto valor, sino que también apoyas a las comunidades artesanales y promover el comercio justo.
+Lleva tu taller al mundo digital con nuestra plataforma, te ofrecemos beneficios como un diseño web atractivo y fácil de navegar, donde podrás adquirir membresías, capacitación de marketing, envíos económicos y un enfoque de sostenibilidad que vele por la promoción de productos 100% "hechos en México".
+</h4>
+
+### Repositorio de **Frontend** de nuestro E-Commerce Raíces Mx para concluir el Bootcamp de **Generation México**.
 
 <h4>Nuestro Equipo:</h4>
 
