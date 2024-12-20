@@ -1,36 +1,6 @@
 // Lista de productos obtenida del localStorage o vacía
-let listaDeProductos = JSON.parse(localStorage.getItem('productos')) || [];
-/*-----------------------------------------------------------------------------------*/
-// Función para mostrar los productos guardados
-/*-----------------------------------------------------------------------------------*/
-function mostrarProductos() {
-    const productosContainer = document.querySelector('.productos-container');
-    productosContainer.innerHTML = ''; // Limpiar los productos antes de mostrar los nuevos
+//let listaDeProductos = JSON.parse(localStorage.getItem('productos')) || [];
 
-    // Iterar sobre los productos y mostrarlos
-    listaDeProductos.forEach(producto => {
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('card');
-        productoDiv.innerHTML = `
-            <div class="card" style="width: 18rem;">
-                <img src="${producto.imagen}" class="card-img-top" alt="${producto.name}">
-                <div class="card-body">
-                    <center><h5 class="card-title">${producto.name}</h5></center>
-                    <p class="card-text">${producto.descripcion}</p>
-                    <center>
-                        <p class="card-text">Precio: $${producto.precio}</p>
-                        <p class="card-text">Categoría: ${producto.categoria}</p>
-                        <p class="card-text"> Estado: ${producto.estado}</p>
-                        <p class="card-text">Inventario: ${producto.inventario}</p> 
-                        <a href="#" class="btn btn-primary" onclick="updateData(${producto.id})">Editar</a>                    
-                        <a href="#" class="btn btn-danger" onclick="eliminarProducto(${producto.id})">Eliminar</a>  
-                    </center>
-                </div>
-            </div>
-        `;
-        productosContainer.appendChild(productoDiv);
-    });
-}
 /*-----------------------------------------------------------------------------------*/
 // Función para obtener los datos del formulario y convertirlos en formato JSON
 /*-----------------------------------------------------------------------------------*/
@@ -107,27 +77,132 @@ function obtenerDatosFormulario(event) {
     } else {
       // Crear un objeto con los datos
     const datosProducto = {
-        id: parseInt(id), // Asegurarse de que el ID sea un número
-        imagen: imagen,
-        name: name,
+        
+        id_artesano:id,
+        imagen_url: imagen,
+        nombre: name,
         precio: parseFloat(precio), // Convertir el precio a número
-        inventario: parseInt(inventario), // Convertir inventario a número
-        categoria: categoria,
-        estado: estado,
-        descripcion: descripcion
+        stock: parseInt(inventario), // Convertir inventario a número
+        descripcion: descripcion,
+        id_categorias: categoria,
+        id_status: estado,
+        id_pedido: 1 //Momentaneamente
+
+
     };
+
+    // Comenzar con la llamada de la API (fetch, asynch-await, axios)
+    const url = `http://localhost:8080/api/v1/producto/new-producto`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosProducto)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log(data)
+            console.log('Guardado', data)
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
+        //Ya lo guarda en postman
+
     // Guardar el producto en la lista de productos
-    listaDeProductos.push(datosProducto);
-
+    //listaDeProductos.push(datosProducto);
     // Guardar la lista de productos en localStorage
-    localStorage.setItem('productos', JSON.stringify(listaDeProductos));
-
+    //localStorage.setItem('productos', JSON.stringify(listaDeProductos));
     // Limpiar el formulario
     document.getElementById('formProduct').reset();
-
+    location.reload();
     // Mostrar los productos actualizados
     mostrarProductos();
 }}
+/*-----------------------------------------------------------------------------------*/
+// Función para consumir una Api get Obtener los datos de productos
+/*-----------------------------------------------------------------------------------*/
+const url = "http://localhost:8080/api/v1/producto/getall";
+console.log("antes del fetch");
+//Función para consumir una Api
+function obtenerProductos() {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la red');
+            }
+            return response.json();
+        })
+        .then(data => {
+            mostrarProductos(data); // Llama a mostrarProductos con los datos obtenidos
+        })
+        .catch(error => {
+            console.error("Error al obtener los productos:", error);
+        });
+}
+//----------------------
+fetch(url, {
+    method: 'GET'
+}).then((response) => {
+    // El primer .then recibe la respuesta 
+    // Es una promesa respuesta
+    return response.json();
+}).then((data) => {
+    // Trabaja con la data de la respuesta
+    console.log(data);
+    //localStorage.setItem("nombrePokemon", data.name);
+    //listaDeProductoslistaDeProductos = data;
+    // Llama a peleaPokemon aquí, después de que se haya almacenado el nombre
+    mostrarProductos(data);
+    //peleaPokemon();
+}).catch((error) => {
+    console.error("ups no se que paso", error);
+});
+
+console.log("Prueba del fetch");
+
+//function peleaPokemon() {
+   // const miPrimerPokemon = localStorage.getItem("nombrePokemon");
+    // técnicamente la clave del valor clave-valor
+  //  console.log("primerContrincante:" + miPrimerPokemon);
+//}
+
+/*-----------------------------------------------------------------------------------*/
+// Función para mostrar los productos guardados
+/*-----------------------------------------------------------------------------------*/
+function mostrarProductos(listaDeProductos) {
+    const productosContainer = document.querySelector('.productos-container');
+    productosContainer.innerHTML = ''; // Limpiar el contenedor antes de mostrar nuevos productos
+
+    listaDeProductos.forEach(producto => {
+
+        const productoDiv = document.createElement('div');
+        productoDiv.classList.add('card');
+        productoDiv.innerHTML = ` 
+            <div class="card" style="width: 18rem;">
+                <img src="${producto.imagen_url}" class="card-img-top" alt="${producto.nombre}">
+                <div class="card-body">
+                    <center><h5 class="card-title">${producto.nombre}</h5></center>
+                    <p class="card-text">${producto.descripcion}</p>
+                    <center>
+                        <p class="card-text">Precio: $${producto.precio}</p>
+                        <p class="card-text">Inventario: ${producto.stock}</p> 
+                        <a href="#" class="btn btn-primary" onclick="updateData(${producto.id_producto})">Editar</a>                    
+                        <a href="#" class="btn btn-danger" onclick="eliminarProducto(${producto.id_producto})">Eliminar</a>  
+                    </center>
+                </div>
+            </div>
+        `;
+        productosContainer.appendChild(productoDiv);
+    });
+}
+obtenerProductos();
+
 /*-----------------------------------------------------------------*/
 //Función para Eliminar todos los productos
 /*-----------------------------------------------------------------*/
@@ -152,17 +227,27 @@ btnUpdate.style.display = "none";
 const btnCancelar = document.getElementById('Cancelar');
 btnCancelar.style.display = "none"; 
 // Función para editar producto
-function updateData(id) {
-    const producto = listaDeProductos.find(p => p.id === id);
-    document.getElementById('id').value = producto.id;
-    document.getElementById('imagen').value = producto.imagen;
-    document.getElementById('name').value = producto.name;
-    document.getElementById('precio').value = producto.precio;
-    document.getElementById('inventario').value = producto.inventario;
-    document.getElementById('categoria').value = producto.categoria;
-    document.getElementById('estado').value = producto.estado;
-    document.getElementById('descripcion').value = producto.descripcion;
+function updateData(id_producto) {
+    const url = `http://localhost:8080/api/v1/producto/get/${id_producto}`;
+    console.log(url, id_producto);
+    fetch(url, {
+        method: 'GET'
+    }).then((response) => {
 
+        return response.json();
+    }).then((data) => {
+        
+    //document.getElementById('id').value = data.id_artesano;
+    document.getElementById('imagen').value = data.imagen_url;
+    document.getElementById('name').value = data.nombre;
+    document.getElementById('precio').value = data.precio;
+    document.getElementById('inventario').value = data.stock;
+    //document.getElementById('categoria').value = data.id_categorias;
+    //document.getElementById('estado').value = data.id_status;
+    document.getElementById('descripcion').value = data.descripcion;
+           }).catch((error) => {
+        console.error(":( ", error);
+    });
     // Ocultar el botón de Enviar y mostrar el de Actualizar
     document.getElementById("enviar").style.display = "none";
     btnUpdate.style.display = "block";
@@ -204,21 +289,14 @@ function updateData(id) {
         document.getElementById("uno").textContent="Ingresa un precio valido";
         return;
     }
-    else if(inventario===""){
-        
-        document.getElementById("uno").className= "alert alert-danger";
-        document.getElementById("uno").setAttribute("role","alert");
-        document.getElementById("uno").textContent="Ingresa numero de inventario";
-        return;
-    }
-    else if(categoria==="EligeUnaOpcion"){
+    else if(categoria==="EligeUnaOpcion"|| categoria===""){
         
         document.getElementById("uno").className= "alert alert-danger";
         document.getElementById("uno").setAttribute("role","alert");
         document.getElementById("uno").textContent="Por favor elige una categoría ";
         return;
     }
-    else if(estado==="EligeUnaOpcion"){
+    else if(estado==="EligeUnaOpcion"|| estado===""){
         
         document.getElementById("uno").className= "alert alert-danger";
         document.getElementById("uno").setAttribute("role","alert");
@@ -231,45 +309,94 @@ function updateData(id) {
         document.getElementById("uno").textContent="Ingresa una descripción";
         return;
     } else {
-        // Actualizar los datos del producto
-        producto.imagen = document.getElementById('imagen').value;
-        producto.name = document.getElementById('name').value;
-        producto.precio = document.getElementById('precio').value;
-        producto.inventario = document.getElementById('inventario').value;
-        producto.categoria = document.getElementById('categoria').value;
-        producto.estado = document.getElementById('estado').value;
-        producto.descripcion = document.getElementById('descripcion').value;
-
-        // Guardar los cambios
-        localStorage.setItem('productos', JSON.stringify(listaDeProductos));
-        mostrarProductos();
-
-        location.reload();
+        const editProducto = {
+            id_producto:id_producto,
+            imagen_url: imagen,
+            nombre: name,
+            precio: parseFloat(precio), // Convertir el precio a número
+            stock: parseInt(inventario), // Convertir inventario a número
+            descripcion: descripcion         
     
+        };
+          
+        // Comenzar con la llamada de la API (fetch, asynch-await, axios)
+        const url = `http://localhost:8080/api/v1/producto/update/${id_producto}`;
+        
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editProducto)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+
+            })
+            .catch(error => {
+                console.error(error);
+            })
+
+
+        
         // Ocultar el botón de Actualizar y mostrar el de Enviar nuevamente
         document.getElementById("enviar").style.display = "block";
         btnUpdate.style.display = "none";
+            // Agregar evento al botón de cancelar
+        btnCancelar.addEventListener('click', function () {
+            location.reload();
+        
+        });
+        
     }
+    location.reload();
     });
-    // Agregar evento al botón de cancelar
-    btnCancelar.addEventListener('click', function () {
-        location.reload();
-    
-    });
+    } 
 
-} 
+/*-----------------------------------------------------------------*/
+
+
 /*-----------------------------------------------------------------*/
 // Función para eliminar un producto de la lista
 /*-----------------------------------------------------------------*/
-function eliminarProducto(id) {
+function eliminarProducto(id_producto) {
+    const url = `http://localhost:8080/api/v1/producto/delete/${id_producto}`;
+console.log("antes del fetch");
+//Función para consumir una Api
+//----------------------
+fetch(url, {
+    method: 'DELETE'
+}).then((response) => {
+    // El primer .then recibe la respuesta 
+    // Es una promesa respuesta
+    console.log("función de eliminar");
+    return response.json();
+}).then((data) => {
+    // Trabaja con la data de la respuesta
+    
+    console.log(data);
+    //localStorage.setItem("nombrePokemon", data.name);
+    //listaDeProductoslistaDeProductos = data;
+    // Llama a peleaPokemon aquí, después de que se haya almacenado el nombre
+    //mostrarProductos(data);
+    //peleaPokemon();
+    
+
+}).catch((error) => {
+    console.error("ups no se que paso", error);
+});
+
+console.log("Despues del fetch");
     // Filtrar el producto que no se desea eliminar
-    listaDeProductos = listaDeProductos.filter(producto => producto.id !== id);
+    //listaDeProductos = listaDeProductos.filter(producto => producto.id !== id);
 
     // Actualizar el localStorage
-    localStorage.setItem('productos', JSON.stringify(listaDeProductos));
+    //localStorage.setItem('productos', JSON.stringify(listaDeProductos));
 
     // Mostrar los productos actualizados
-    mostrarProductos();
+    
+    location.reload();
 }
-// Mostrar los productos cuando se carga la página
-mostrarProductos();
